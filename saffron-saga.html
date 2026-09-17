@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Saffron Saga Restaurant — Kalyan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Karla:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#241009;
+    --maroon:#7A1F2B;
+    --maroon-deep:#500F18;
+    --saffron:#E1922F;
+    --marigold:#F0B94D;
+    --ivory:#FBF3E4;
+    --ivory-dim:#F3E6CC;
+    --leaf:#46613C;
+    --cream-text:#FBEFD9;
+    --line: rgba(36,16,9,0.14);
+    --line-on-dark: rgba(251,239,228,0.22);
+  }
+  :root:not([data-theme="light"]){
+    @media (prefers-color-scheme: dark){
+      --ivory:#231a12;
+      --ivory-dim:#2a2013;
+      --ink:#F3E6CC;
+      --line: rgba(243,230,204,0.16);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ivory:#231a12;
+    --ivory-dim:#2a2013;
+    --ink:#F3E6CC;
+    --line: rgba(243,230,204,0.16);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ivory);
+    color:var(--ink);
+    font-family:'Karla', -apple-system, sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Yeseva One', serif;
+    font-weight:400;
+    line-height:1.15;
+    margin:0;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
+  .veg-mark{
+    display:inline-block;width:14px;height:14px;border:1.5px solid var(--leaf);
+    border-radius:3px;position:relative;flex-shrink:0;
+  }
+  .veg-mark::after{
+    content:"";position:absolute;inset:3px;background:var(--leaf);border-radius:50%;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;top:0;z-index:40;
+    background:var(--ivory);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 0;
+  }
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);}
+  .brand svg{width:30px;height:30px;flex-shrink:0;}
+  .brand span{font-family:'Yeseva One',serif;font-size:19px;letter-spacing:0.2px;}
+  nav.links{display:flex;gap:32px;align-items:center;}
+  nav.links a{
+    text-decoration:none;color:var(--ink);font-size:14.5px;font-weight:600;
+    opacity:0.78; transition:opacity .15s ease;
+  }
+  nav.links a:hover{opacity:1;}
+  .call-btn{
+    background:var(--maroon); color:var(--cream-text)!important; opacity:1!important;
+    padding:10px 20px; border-radius:2px; font-weight:700; font-size:14px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:6px;}
+  .menu-toggle svg{width:24px;height:24px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    background:radial-gradient(120% 140% at 15% -10%, var(--maroon) 0%, var(--maroon-deep) 55%, #38070E 100%);
+    color:var(--cream-text);
+    overflow:hidden;
+    padding:88px 0 110px;
+  }
+  .hero-motif{
+    position:absolute; inset:0; opacity:0.16; pointer-events:none;
+  }
+  .hero-inner{position:relative; z-index:2;}
+  .rating-chip{
+    display:inline-flex;align-items:center;gap:10px;
+    border:1px solid var(--line-on-dark); padding:7px 14px 7px 8px; border-radius:100px;
+    font-size:13.5px; margin-bottom:34px; background:rgba(251,239,228,0.05);
+  }
+  .rating-chip strong{
+    background:var(--saffron); color:var(--maroon-deep); border-radius:50%;
+    width:24px;height:24px;display:flex;align-items:center;justify-content:center;
+    font-size:12px; font-weight:700; font-family:'Karla',sans-serif;
+  }
+  .hero h1{
+    font-size:clamp(42px, 6.4vw, 78px);
+    max-width:11ch;
+    color:var(--cream-text);
+  }
+  .hero h1 em{
+    font-style:normal; color:var(--saffron);
+  }
+  .hero .tagline{
+    margin-top:22px; font-size:18px; max-width:38ch; color:rgba(251,239,228,0.82);
+  }
+  .hero-cta{display:flex; gap:16px; margin-top:38px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:9px;
+    padding:14px 26px; border-radius:2px; font-weight:700; font-size:14.5px;
+    text-decoration:none; border:1px solid transparent; cursor:pointer;
+  }
+  .btn-primary{background:var(--saffron); color:var(--maroon-deep);}
+  .btn-ghost{border-color:var(--line-on-dark); color:var(--cream-text);}
+  .btn svg{width:16px;height:16px;}
+
+  .hero-facts{
+    margin-top:64px; display:grid; grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--line-on-dark); padding-top:26px; gap:20px;
+  }
+  .hero-facts .fact-label{font-size:12px; text-transform:uppercase; letter-spacing:1.1px; opacity:0.62;}
+  .hero-facts .fact-value{font-family:'Yeseva One',serif; font-size:21px; margin-top:6px; color:var(--marigold);}
+
+  /* ---------- SECTION HEADERS ---------- */
+  .kicker-row{display:flex; align-items:baseline; gap:16px; margin-bottom:16px;}
+  .kicker-num{font-family:'Yeseva One',serif; font-size:15px; color:var(--saffron);}
+  section{padding:96px 0;}
+  section h2{font-size:clamp(30px,4vw,44px); max-width:16ch;}
+  .lede{max-width:56ch; margin-top:18px; font-size:16.5px; opacity:0.82;}
+
+  /* ---------- ABOUT / TAGS ---------- */
+  .about{border-bottom:1px solid var(--line);}
+  .about-grid{
+    margin-top:54px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:70px; align-items:start;
+  }
+  .tag-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column;}
+  .tag-list li{
+    display:flex; align-items:center; gap:14px; padding:16px 0;
+    border-top:1px solid var(--line); font-size:15.5px;
+  }
+  .tag-list li:last-child{border-bottom:1px solid var(--line);}
+  .tag-icon{width:20px;height:20px;flex-shrink:0;color:var(--maroon);}
+  :root[data-theme="dark"] .tag-icon, :root:not([data-theme="light"]) .tag-icon{ color:var(--saffron); }
+  @media (prefers-color-scheme: dark){ .tag-icon{color:var(--saffron);} }
+
+  .quote-block{
+    background:var(--ivory-dim); border-left:3px solid var(--saffron);
+    padding:30px 32px; font-size:17px; line-height:1.65;
+  }
+  .quote-block cite{
+    display:block; margin-top:16px; font-style:normal; font-size:13px; opacity:0.65;
+  }
+
+  /* ---------- MENU ---------- */
+  .menu-sec{background:var(--maroon-deep); color:var(--cream-text);}
+  .menu-sec .lede{opacity:0.72;}
+  .menu-sec .kicker-num{color:var(--marigold);}
+  .dish-list{margin-top:56px; border-top:1px solid var(--line-on-dark);}
+  .dish{
+    display:flex; align-items:center; gap:22px; padding:22px 0;
+    border-bottom:1px solid var(--line-on-dark);
+  }
+  .dish .veg-mark{border-color:var(--marigold);}
+  .dish .veg-mark::after{background:var(--marigold);}
+  .dish-name{font-family:'Yeseva One',serif; font-size:19px; flex-shrink:0; width:280px;}
+  .dish-tag{
+    font-size:11.5px; text-transform:uppercase; letter-spacing:0.8px;
+    color:var(--saffron); border:1px solid var(--saffron); padding:3px 9px; border-radius:100px;
+    flex-shrink:0;
+  }
+  .dish-dots{flex:1; border-bottom:1px dotted rgba(251,239,228,0.25); height:1px; margin:0 4px;}
+  .menu-note{margin-top:40px; font-size:14px; opacity:0.62;}
+
+  /* ---------- REVIEWS ---------- */
+  .reviews-strip{border-bottom:1px solid var(--line);}
+  .review-grid{margin-top:54px; display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line);}
+  .review-card{background:var(--ivory); padding:34px 30px;}
+  .review-stars{color:var(--saffron); font-size:14px; letter-spacing:2px; margin-bottom:16px;}
+  .review-card p{margin:0; font-size:15.5px; opacity:0.86;}
+  .review-card .who{margin-top:18px; font-size:13px; opacity:0.55;}
+
+  /* ---------- POPULAR TIMES ---------- */
+  .busy-block{
+    margin-top:54px; display:grid; grid-template-columns:0.85fr 1.15fr; gap:70px; align-items:end;
+  }
+  .busy-status{
+    display:flex; align-items:center; gap:10px; font-size:14.5px; font-weight:700; margin-bottom:10px;
+  }
+  .busy-dot{width:9px;height:9px;border-radius:50%; background:var(--leaf); flex-shrink:0;}
+  .busy-status.live .busy-dot{ background:#C97A1A; }
+  .busy-sub{font-size:14px; opacity:0.65; margin-top:6px;}
+  .bars{display:flex; align-items:flex-end; gap:8px; height:150px;}
+  .bar{flex:1; background:var(--ivory-dim); border-radius:2px 2px 0 0; position:relative;}
+  .bar span{
+    position:absolute; bottom:-24px; left:0; right:0; text-align:center;
+    font-size:11px; opacity:0.55;
+  }
+  .bar.now{background:var(--saffron);}
+  .bar.peak{background:var(--maroon);}
+
+  /* ---------- LOCATION ---------- */
+  .location{background:var(--ivory-dim);}
+  .loc-grid{margin-top:54px; display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--line);}
+  .loc-map{
+    position:relative; min-height:340px; background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0/38px 38px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/38px 38px,
+      var(--ivory);
+    border-right:1px solid var(--line);
+  }
+  .loc-map .pin{
+    position:absolute; top:48%; left:52%; transform:translate(-50%,-100%);
+  }
+  .loc-map .pin svg{width:38px;height:38px; color:var(--maroon);}
+  .loc-map .pin-road{
+    position:absolute; top:0; bottom:0; left:52%; width:2px; background:var(--line);
+  }
+  .loc-details{padding:44px 40px;}
+  .loc-details h3{font-size:22px; margin-bottom:6px;}
+  .loc-details address{font-style:normal; opacity:0.78; font-size:15px; margin-top:14px; line-height:1.6;}
+  .hours-table{margin-top:26px; width:100%; border-collapse:collapse; font-size:14.5px;}
+  .hours-table td{padding:7px 0; border-top:1px solid var(--line);}
+  .hours-table td:last-child{text-align:right;}
+  .loc-cta{display:flex; gap:14px; margin-top:30px; flex-wrap:wrap;}
+  .btn-dark{background:var(--maroon); color:var(--cream-text);}
+  .btn-outline{border:1px solid var(--maroon); color:var(--maroon);}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:50px 0; border-top:1px solid var(--line);}
+  .foot-inner{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;}
+  .foot-inner .brand span{font-size:16px;}
+  .foot-meta{font-size:13px; opacity:0.55;}
+
+  @media (max-width: 860px){
+    nav.links{display:none;}
+    .menu-toggle{display:block;}
+    .hero{padding:64px 0 70px;}
+    .hero-facts{grid-template-columns:repeat(2,1fr);}
+    .about-grid, .busy-block, .loc-grid{grid-template-columns:1fr; gap:36px;}
+    .review-grid{grid-template-columns:1fr;}
+    .dish{flex-wrap:wrap;}
+    .dish-name{width:auto;}
+    .dish-dots{display:none;}
+    section{padding:64px 0;}
+    .loc-map{border-right:none; border-bottom:1px solid var(--line);}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M20 8c3 4 3 7 0 12-3-5-3-8 0-12Z" fill="var(--maroon)"/>
+        <path d="M20 32c3-4 3-7 0-12-3 5-3 8 0 12Z" fill="var(--saffron)"/>
+        <path d="M8 20c4-3 7-3 12 0-5 3-8 3-12 0Z" fill="var(--saffron)"/>
+        <path d="M32 20c-4-3-7-3-12 0 5 3 8 3 12 0Z" fill="var(--maroon)"/>
+      </svg>
+      <span>The Saffron Saga</span>
+    </a>
+    <nav class="links">
+      <a href="#about">About</a>
+      <a href="#menu">Menu</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#location">Location</a>
+      <a class="call-btn" href="tel:08291606606">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call
+      </a>
+    </nav>
+    <button class="menu-toggle" aria-label="menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero" style="padding-bottom:0;">
+    <svg class="hero-motif" viewBox="0 0 1120 700" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="var(--marigold)" stroke-width="1" fill="none">
+        <path d="M950 40c60 70 60 150 0 220-60-70-60-150 0-220Z" transform="rotate(20 950 150)"/>
+        <path d="M1030 260c60 70 60 150 0 220-60-70-60-150 0-220Z" transform="rotate(-10 1030 370)"/>
+        <path d="M880 420c50 60 50 130 0 190-50-60-50-130 0-190Z" transform="rotate(35 880 515)"/>
+        <circle cx="1000" cy="120" r="150" />
+        <circle cx="1000" cy="120" r="220" />
+      </g>
+    </svg>
+    <div class="wrap hero-inner">
+      <div class="rating-chip">
+        <strong>4.3</strong> Rated by 2,011 diners on Google · Pure vegetarian
+      </div>
+      <h1>Vegetarian food, told as a <em>saga</em>.</h1>
+      <p class="tagline">A pure-veg kitchen on Birla College Campus Road, Kalyan — all-you-can-eat thalis, tandoor classics, and Indo-Chinese favourites, served on an open-air terrace till half past midnight.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#menu">
+          View the menu
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="#location">Get directions</a>
+        <a class="btn btn-ghost" href="tel:08291606606">Call to book</a>
+      </div>
+      <div class="hero-facts">
+        <div>
+          <div class="fact-label">Cost for two</div>
+          <div class="fact-value">₹800–1,600</div>
+        </div>
+        <div>
+          <div class="fact-label">Hours today</div>
+          <div class="fact-value">Open · till 12:30 am</div>
+        </div>
+        <div>
+          <div class="fact-label">Cuisine</div>
+          <div class="fact-value">Veg &amp; Indo-Chinese</div>
+        </div>
+        <div>
+          <div class="fact-label">Seating</div>
+          <div class="fact-value">Indoor + Outdoor</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="wrap">
+      <div class="kicker-row"><span class="kicker-num">01</span></div>
+      <h2>Everything on the menu here is vegetarian — some of it Jain, all of it generous.</h2>
+      <p class="lede">The Saffron Saga runs an unlimited thali alongside an à la carte spread, so a table can mix a slow-cooked curry with a plate of Schezwan noodles without anyone having to compromise. The terrace stays open late for anyone who'd rather eat under the sky.</p>
+
+      <div class="about-grid">
+        <ul class="tag-list">
+          <li>
+            <svg class="tag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            All-you-can-eat thali service
+          </li>
+          <li>
+            <svg class="tag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s8-4.5 8-11a8 8 0 1 0-16 0c0 6.5 8 11 8 11Z"/><circle cx="12" cy="11" r="3"/></svg>
+            Open-air terrace seating
+          </li>
+          <li>
+            <span class="veg-mark" style="border-color:var(--maroon)"></span>
+            <span style="margin-left:-2px">100% vegetarian kitchen, with vegan dishes marked on request</span>
+          </li>
+          <li>
+            <svg class="tag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2v20M2 12h20"/></svg>
+            Jain-style preparation available for most dishes
+          </li>
+        </ul>
+
+        <div class="quote-block">
+          Guests often mention the classy, unhurried ambience and how quickly the food arrives even on a full terrace — the veg crispy starter and the biryani come up again and again in write-ups.
+          <cite>— a paraphrase of recurring themes across Google reviews</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="menu-sec" id="menu">
+    <div class="wrap">
+      <div class="kicker-row"><span class="kicker-num">02</span></div>
+      <h2>Menu highlights</h2>
+      <p class="lede">A short walk through the dishes guests order most — from the soup course to the last glass of juice. The full picture menu is at the counter and on the table.</p>
+
+      <div class="dish-list">
+        <div class="dish"><span class="veg-mark"></span><span class="dish-name">Veg Crispy</span><span class="dish-tag">Most ordered</span><span class="dish-dots"></span></div>
+        <div class="dish"><span class="veg-mark"></span><span class="dish-name">Paneer Tikka</span><span class="dish-dots"></span></div>
+        <div class="dish"><span class="veg-mark"></span><span class="dish-name">Veg Manchow Soup</span><span class="dish-dots"></span></div>
+        <div class="dish"><span class="veg-mark"></span><span class="dish-name">Peru Pyala</span><span class="dish-dots"></span></div>
+        <div class="dish"><span class="veg-mark"></span><span class="dish-name">Tomato Onion Uttapam</span><span class="dish-dots"></span></div>
+        <div class="dish"><span class="veg-mark"></span><span class="dish-name">Veg Dum Biryani</span><span class="dish-dots"></span></div>
+        <div class="dish"><span class="veg-mark"></span><span class="dish-name">Veg Schezwan Noodles</span><span class="dish-dots"></span></div>
+        <div class="dish"><span class="veg-mark"></span><span class="dish-name">Stuffed Mushroom in Schezwan</span><span class="dish-dots"></span></div>
+        <div class="dish"><span class="veg-mark"></span><span class="dish-name">Masala Papad</span><span class="dish-dots"></span></div>
+        <div class="dish"><span class="veg-mark"></span><span class="dish-name">Veg Shaam Savera</span><span class="dish-dots"></span></div>
+        <div class="dish"><span class="veg-mark"></span><span class="dish-name">Watermelon Juice</span><span class="dish-dots"></span></div>
+      </div>
+      <p class="menu-note">Prices range ₹400–1,600 per person depending on à la carte or thali service. Ask staff for the current Jain and vegan options.</p>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews-strip" id="reviews">
+    <div class="wrap">
+      <div class="kicker-row"><span class="kicker-num">03</span></div>
+      <h2>What 2,011 reviewers are saying</h2>
+      <p class="lede">A 4.3 average built mostly on the starters, the biryani, and a dining room guests describe as cosy rather than clinical.</p>
+
+      <div class="review-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p>Diners describe the space as classy and cosy, with food that matched the setting and service that stayed attentive all evening.</p>
+          <div class="who">Google review, paraphrased</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p>The veg crispy starter is singled out often as a standout for anyone who orders starters everywhere they go.</p>
+          <div class="who">Google review, paraphrased</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★☆</div>
+          <p>The manchow soup and the veg biryani both get called out by name as highlights worth returning for.</p>
+          <div class="who">Google review, paraphrased</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POPULAR TIMES -->
+  <section id="popular-times">
+    <div class="wrap">
+      <div class="kicker-row"><span class="kicker-num">04</span></div>
+      <h2>When it's busiest</h2>
+
+      <div class="busy-block">
+        <div>
+          <div class="busy-status live">
+            <span class="busy-dot"></span> Live: a little busy right now
+          </div>
+          <div class="busy-sub">Usually up to a 15-minute wait at this time.</div>
+          <div class="busy-sub" style="margin-top:16px;">Most tables stay for 10 minutes to 1.5 hours — quick enough for a solo thali, long enough for a full family dinner.</div>
+        </div>
+        <div>
+          <div class="bars" aria-label="Typical Thursday traffic by hour">
+            <div class="bar" style="height:22%"><span>12p</span></div>
+            <div class="bar" style="height:38%"><span>2p</span></div>
+            <div class="bar" style="height:30%"><span>4p</span></div>
+            <div class="bar" style="height:55%"><span>6p</span></div>
+            <div class="bar now" style="height:78%"><span>8p</span></div>
+            <div class="bar peak" style="height:100%"><span>9p</span></div>
+            <div class="bar" style="height:62%"><span>10p</span></div>
+            <div class="bar" style="height:20%"><span>12a</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section class="location" id="location">
+    <div class="wrap">
+      <div class="kicker-row"><span class="kicker-num">05</span></div>
+      <h2>Find the table</h2>
+
+      <div class="loc-grid">
+        <div class="loc-map">
+          <div class="pin-road"></div>
+          <div class="pin">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C7.6 2 4 5.6 4 10c0 6 8 12 8 12s8-6 8-12c0-4.4-3.6-8-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></svg>
+          </div>
+        </div>
+        <div class="loc-details">
+          <h3>The Saffron Saga Restaurant</h3>
+          <address>
+            Vegas Residency, Birla College Campus Road,<br>
+            opposite Paradise Hotel, West, Chikan Ghar,<br>
+            Kalyan, Maharashtra 421301
+          </address>
+          <table class="hours-table">
+            <tr><td>Today</td><td>Open · closes 12:30 am</td></tr>
+            <tr><td>Cost for two</td><td>₹400–1,600</td></tr>
+            <tr><td>Phone</td><td>082916 06606</td></tr>
+          </table>
+          <div class="loc-cta">
+            <a class="btn btn-dark" href="https://www.google.com/maps/search/?api=1&query=The+Saffron+Saga+Restaurant+Kalyan" target="_blank" rel="noopener">Open in Maps</a>
+            <a class="btn btn-outline" href="tel:08291606606">Call restaurant</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-inner">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="26" height="26">
+        <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M20 8c3 4 3 7 0 12-3-5-3-8 0-12Z" fill="var(--maroon)"/>
+        <path d="M20 32c3-4 3-7 0-12-3 5-3 8 0 12Z" fill="var(--saffron)"/>
+      </svg>
+      <span>The Saffron Saga</span>
+    </a>
+    <div class="foot-meta">Vegas Residency, Birla College Campus Road, Kalyan · 082916 06606 · Unofficial fan site built from public listing details</div>
+  </div>
+</footer>
+
+</body>
+</html>
